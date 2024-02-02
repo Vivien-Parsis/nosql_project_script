@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pymongo
+from datetime import datetime
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["nosql_project"]
@@ -30,9 +31,12 @@ query = [
 
 data = col.aggregate(query)
 date, hospitalises, nouvellesHospitalisations, reanimation = [],[],[],[]
+hour = " 00:00:00"
 for plot in data:
     reanimation.append(plot["reanimation"])
-    date.append(plot["date"])
+    currentDate = datetime.strptime(plot["date"]+hour, '%Y-%m-%d %H:%M:%S')
+    currentTimeStamp = currentDate.timestamp()
+    date.append(currentTimeStamp)
     hospitalises.append(plot["hospitalises"])
     nouvellesHospitalisations.append(plot["nouvellesHospitalisations"])
 
