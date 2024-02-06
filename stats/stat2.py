@@ -30,15 +30,21 @@ query = [
 ]
 
 data = col.aggregate(query)
+data_string = "["
 date, hospitalises, nouvellesHospitalisations, reanimation = [],[],[],[]
 hour = " 00:00:00"
 for plot in data:
+    data_string+=json.dumps(plot)+",\n"
     reanimation.append(plot["reanimation"])
     currentDate = datetime.strptime(plot["date"]+hour, '%Y-%m-%d %H:%M:%S')
     currentTimeStamp = currentDate.timestamp()
     date.append(currentTimeStamp)
     hospitalises.append(plot["hospitalises"])
     nouvellesHospitalisations.append(plot["nouvellesHospitalisations"])
+data_string+="]"
+data_string = data_string.replace(",\n]","]")
+with open("./stats/stat2_output.json", "w") as file:
+    file.write(data_string)
 
 plt.style.use('_mpl-gallery')
 plt.plot(date,hospitalises,color="blue")
