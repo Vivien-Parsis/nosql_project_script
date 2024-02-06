@@ -2,6 +2,8 @@ import json
 import matplotlib.pyplot as plt
 import pymongo
 from datetime import datetime
+import time
+start = time.time()
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["nosql_project"]
@@ -59,4 +61,6 @@ plt.style.use('_mpl-gallery')
 plt.plot(date,confirmes,color="green")
 plt.plot(date,deces,color="red")
 plt.plot(date,gueris,color="blue")
+print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")
+print("output result can be found in " + "./stats/stat1_output.json")
 plt.show()

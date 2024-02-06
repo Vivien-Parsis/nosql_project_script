@@ -1,4 +1,6 @@
 from req_class import mongo_req
+import time
+start = time.time()
 
 # Requête pour afficher le total cumulé du nombre de cas confirmés, de décès, et de personnes guéries en France
 aggregate = [
@@ -81,3 +83,5 @@ filePath = "./requests/req8_output.json"
 find, findProject = {},{}
 req = mongo_req(aggregate,filePath,find,findProject)
 req.getOutputAggregate()
+print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")
+print("output result can be found in " + filePath)

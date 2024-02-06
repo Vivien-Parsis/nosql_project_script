@@ -21,6 +21,7 @@ class mongo_req:
         data_string = data_string.replace(",\n]","]")
         with open(self.filePath, "w") as file:
             file.write(data_string)
+        client.close()
 
     def getOutputFind(self):
         client = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -34,3 +35,4 @@ class mongo_req:
         data_string = data_string.replace(",\n]","]")
         with open(self.filePath, "w") as file:
             file.write(data_string)
+        client.close()
