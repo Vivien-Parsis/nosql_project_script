@@ -1,4 +1,4 @@
-# Simple weather api
+# Simple Python MongoDB Query tool
 Ensemble de script pour éxécuté des réquètes mongodb dans une base de données sur le covid en France
 
 ## Fonctionnalité principales
