@@ -9,6 +9,9 @@ class mongodb_query_handler:
         self.findMatch = findMatch
         self.findProject = findProject
 
+    def getFilePath(self):
+        return self.filePath
+
     def getOutputAggregate(self):
         client = pymongo.MongoClient("mongodb://localhost:27017/")
         db = client["nosql_project"]
