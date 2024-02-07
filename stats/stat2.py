@@ -29,19 +29,23 @@ filePath = "./stats/stat2_output.json"
 query_handler = mongodb_query_handler(query,filePath)
 data = query_handler.getOutputAggregate()
 date, hospitalises, nouvellesHospitalisations, reanimation = [],[],[],[]
-hour = " 00:00:00"
+index = 0
+StepAxisX = []
 for plot in data:
+    if index % 15 == 0:
+      StepAxisX.append(plot["date"])
     reanimation.append(plot["reanimation"])
-    currentDate = datetime.strptime(plot["date"]+hour, '%Y-%m-%d %H:%M:%S')
-    currentTimeStamp = currentDate.timestamp()
-    date.append(currentTimeStamp)
+    date.append(plot["date"])
     hospitalises.append(plot["hospitalises"])
     nouvellesHospitalisations.append(plot["nouvellesHospitalisations"])
+    index+=1
 
 plt.style.use('_mpl-gallery')
-plt.plot(date,hospitalises,color="blue")
-plt.plot(date,nouvellesHospitalisations,color="red")
-plt.plot(date,reanimation,color="green")
+plt.plot(date,hospitalises,color="blue", label="hospitalises")
+plt.plot(date,nouvellesHospitalisations,color="red", label="nouvelles hospitalisations")
+plt.plot(date,reanimation,color="green", label="reanimation")
+plt.xticks(StepAxisX, rotation=45)
+plt.legend(loc='upper right', fontsize='x-large')
 print("Statistique de nombre d'hospitalisations, de réanimations et de nouvelles hospitalisations par jour, en Île-de-France.")
 print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")
 print("output result can be found in " + filePath)
