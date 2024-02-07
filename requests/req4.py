@@ -10,7 +10,7 @@ aggregate =[
      "totalHospitalises": {"$sum": "$hospitalises"},
     }
   },
-  {"$sort": {"toalHospitalises": -1}},
+  {"$sort": {"totalHospitalises": -1}},
   {"$project": {"departement": "$_id","_id": 0,"totalHospitalises": 1}}
 ]
 

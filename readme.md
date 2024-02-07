@@ -20,3 +20,8 @@ Ensemble de script pour éxécuté des réquètes mongodb dans une base de donn�
 ### Requête pour afficher le total cumulé du nombre de cas confirmés, de décès, et de personnes guéries en France
 
 `python ./requests/req1.py`
+
+### Test si tout les requêtes marche
+
+- sous bash : `./script/test.sh`
+- sous powershell : `./script/test.ps1`
