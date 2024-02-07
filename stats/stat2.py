@@ -1,8 +1,5 @@
 import matplotlib.pyplot as plt
-from datetime import datetime
-import time
 from query_stat_handler import mongodb_query_handler
-start = time.time()
 # Statistique de nombre d’hospitalisations, de réanimations et de nouvelles hospitalisations par jour, en Île-de-France.
 query = [
   {"$match":{"nom":"Île-de-France"}},
@@ -48,6 +45,5 @@ plt.xticks(StepAxisX, rotation=45)
 plt.subplots_adjust(left=0.032, bottom=0.1)
 plt.legend(loc='upper right', fontsize='x-large')
 print("Statistique de nombre d'hospitalisations, de réanimations et de nouvelles hospitalisations par jour, en Île-de-France.")
-print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")
 print("output result can be found in " + filePath)
 plt.show()

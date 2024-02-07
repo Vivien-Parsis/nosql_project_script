@@ -44,28 +44,29 @@ requests = {
     }
 }
 def getRequests():
-    if len(sys.argv)==2:
-        secondArg = sys.argv[1]
-        if "r=" not in secondArg:
-            print("invalid argument")
-            return
-        CurrentReq = secondArg.split("=")[1]
-        if CurrentReq not in requests.keys():
-            print("request not found")
-            return
-        CurrentReq = requests[CurrentReq]
-        if CurrentReq["FindOrAggregate"] != "aggregate" and CurrentReq["FindOrAggregate"] != "find":
-            print("request invalid")
-            return
-        elif CurrentReq["FindOrAggregate"] == "aggregate":
-            print(CurrentReq["description"])
-            print("les résultats de la requete mongoDB peuvent être trouvé dans le fichier : " + CurrentReq["handler"].getFilePath())
-            CurrentReq["handler"].getOutputAggregate()
-        else:
-            print(CurrentReq["description"])
-            print("les résultats de la requete mongoDB peuvent être trouvé dans le fichier : " + CurrentReq["handler"].getFilePath())
-            CurrentReq["handler"].getOutputFind()
+    DoesHaveReqArg = "false"
+    argReq = ""
+    for arg in sys.argv:
+        if "r=" in arg:
+            DoesHaveReqArg = "true"
+            argReq = arg
+    if DoesHaveReqArg == "false":
+        return
+    argReq = argReq.split("=")[1]
+    if argReq not in requests.keys():
+        print("request not found")
+        return
+    argReq = requests[argReq]
+    if argReq["FindOrAggregate"] != "aggregate" and argReq["FindOrAggregate"] != "find":
+        print("request invalid")
+        return
+    elif argReq["FindOrAggregate"] == "aggregate":
+        print(argReq["description"])
+        print("les résultats de la requete mongoDB peuvent être trouvé dans le fichier : " + argReq["handler"].getFilePath())
+        argReq["handler"].getOutputAggregate()
     else:
-        print("missing r=<request> argument")
+        print(argReq["description"])
+        print("les résultats de la requete mongoDB peuvent être trouvé dans le fichier : " + argReq["handler"].getFilePath())
+        argReq["handler"].getOutputFind()
     
 getRequests()

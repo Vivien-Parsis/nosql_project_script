@@ -1,8 +1,5 @@
 import matplotlib.pyplot as plt
-from datetime import datetime
-import time
 from query_stat_handler import mongodb_query_handler
-start = time.time()
 # Statistiques de nombre de décès, hospitalisation et cas confirmé par jour dans le monde.
 query = [
   {
@@ -45,6 +42,5 @@ plt.legend(loc="upper right", fontsize="x-large")
 plt.xticks(StepAxisX, rotation=45)
 plt.subplots_adjust(left=0.02, bottom=0.1, top=0.97)
 print("Statistiques de nombre de décès, hospitalisation et cas confirmé par jour dans le monde.")
-print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")
 print("output result can be found in " + filePath)
 plt.show()

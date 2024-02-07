@@ -19,7 +19,7 @@ Ensemble de script pour éxécuté des réquètes mongodb dans une base de donn�
 
 ### Requête pour afficher le total cumulé du nombre de cas confirmés, de décès, et de personnes guéries en France
 
-`python ./requests/req1.py`
+`python ./requests/req.py r=req1`
 
 ### Test si tout les requêtes marche
 
