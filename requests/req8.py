@@ -46,12 +46,10 @@ aggregate = [
   }
 ]
 
-
 filePath = "./requests/req8_output.json"
 
-find, findProject = {},{}
 description = "Requete pour afficher le total cumule du nombre de cas confirmes, de deces, et de personnes gueries en France"
-req = mongodb_query_handler(aggregate,filePath,find,findProject)
+req = mongodb_query_handler(aggregate=aggregate,filePath=filePath)
 req.getOutputAggregate()
 print(description)
 print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")

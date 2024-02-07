@@ -11,9 +11,7 @@ class mongodb_query_handler:
         client = pymongo.MongoClient("mongodb://localhost:27017/")
         db = client["nosql_project"]
         col = db["covid"]
-        data_cursor = col.aggregate(self.aggregate)
-        data_string = '['
-        data_output = []
+        data_cursor, data_string, data_output = col.aggregate(self.aggregate), '[', []
         for item in data_cursor:
             data_output.append(item)
             data_string+=json.dumps(item)+",\n"

@@ -26,12 +26,10 @@ aggregate =[
   }
 ]
 
-
 filePath = "./requests/req7_output.json"
 
-find, findProject = {},{}
 description = "Affiche sur l'ensemble du covid en France, le pourcentage de reanimations dans les hospitalises."
-req = mongodb_query_handler(aggregate,filePath,find,findProject)
+req = mongodb_query_handler(aggregate=aggregate,filePath=filePath)
 req.getOutputAggregate()
 print(description)
 print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")

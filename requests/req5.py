@@ -16,12 +16,10 @@ aggregate = [
   {"$sort": {"region": 1}}
 ]
 
-
 filePath = "./requests/req5_output.json"
 
-find, findProject = {},{}
 description = "Affiche le nombre de decees et de gueris totaux par regions"
-req = mongodb_query_handler(aggregate,filePath,find,findProject)
+req = mongodb_query_handler(aggregate=aggregate,filePath=filePath)
 req.getOutputAggregate()
 print(description)
 print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")

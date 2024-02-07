@@ -6,34 +6,22 @@ start = time.time()
 # Statistiques de nombre de décès, hospitalisation et cas confirmé par jour dans le monde.
 query = [
   {
-    "$group": {
-      "_id": "$date",
-      "deces": {
-        "$sum": "$deces",
-      },
-      "gueris": {
-        "$sum": "$gueris",
-      },
-      "confirmes": {
-        "$sum": "$casConfirmes",
-      },
-    },
+    "$group":{
+        "_id": "$date",
+        "deces": {"$sum": "$deces"},
+        "gueris": {"$sum": "$gueris"},
+        "confirmes": {"$sum": "$casConfirmes"}
+      }
   },
-  {
-    "$sort": {
-      "_id": 1,
-    },
-  },
-  {
-    "$project": {
-      "_id": 0,
-      "date": "$_id",
-      "deces": 1,
-      "gueris": 1,
-      "confirmes": 1,
-    },
-  },
-]
+  {"$sort":{"_id":1}},
+  {"$project": {
+    "_id":0,
+    "date":"$_id",
+    "deces":1,
+    "gueris":1,
+    "confirmes":1
+}}]
+
 filePath = "./stats/stat1_output.json"
 query_handler = mongodb_query_handler(query,filePath)
 data = query_handler.getOutputAggregate()
