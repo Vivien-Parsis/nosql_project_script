@@ -1,14 +1,9 @@
-import json
 import matplotlib.pyplot as plt
-import pymongo
 from datetime import datetime
 import time
+from query_stat_handler import mongodb_query_handler
 start = time.time()
-
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["nosql_project"]
-col = db["covid"]
-
+# Statistique de nombre d’hospitalisations, de réanimations et de nouvelles hospitalisations par jour, en Île-de-France.
 query = [
   {"$match":{"nom":"Île-de-France"}},
   {
@@ -30,28 +25,24 @@ query = [
     }
   }
 ]
-
-data = col.aggregate(query)
-data_string = "["
+filePath = "./stats/stat2_output.json"
+query_handler = mongodb_query_handler(query,filePath)
+data = query_handler.getOutputAggregate()
 date, hospitalises, nouvellesHospitalisations, reanimation = [],[],[],[]
 hour = " 00:00:00"
 for plot in data:
-    data_string+=json.dumps(plot)+",\n"
     reanimation.append(plot["reanimation"])
     currentDate = datetime.strptime(plot["date"]+hour, '%Y-%m-%d %H:%M:%S')
     currentTimeStamp = currentDate.timestamp()
     date.append(currentTimeStamp)
     hospitalises.append(plot["hospitalises"])
     nouvellesHospitalisations.append(plot["nouvellesHospitalisations"])
-data_string+="]"
-data_string = data_string.replace(",\n]","]")
-with open("./stats/stat2_output.json", "w") as file:
-    file.write(data_string)
 
 plt.style.use('_mpl-gallery')
 plt.plot(date,hospitalises,color="blue")
 plt.plot(date,nouvellesHospitalisations,color="red")
 plt.plot(date,reanimation,color="green")
+print("Statistique de nombre d'hospitalisations, de réanimations et de nouvelles hospitalisations par jour, en Île-de-France.")
 print("successfully executed script, execution time : " + str(round(time.time() - start,2))+ "ms")
-print("output result can be found in " + "./stats/stat2_output.json")
+print("output result can be found in " + filePath)
 plt.show()

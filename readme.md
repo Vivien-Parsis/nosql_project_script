@@ -8,10 +8,12 @@ Ensemble de script pour éxécuté des réquètes mongodb dans une base de donn�
 
 ## Instruction d'installation
 - Créer une base de données mongodb, puis importer dans une collection les données du fichier `./db_covid.json`
+- Pour installer les packages nécesaire `pip install pymongo matplotlib`
 
 ## Configuration requise
 - Serveur et outil MongoDB
 - Python 3.12.1
+- pip
 
 ## Exemple d'utilisation
 

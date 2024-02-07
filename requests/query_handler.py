@@ -1,7 +1,7 @@
 import json
 import pymongo
 
-class mongo_req:
+class mongodb_query_handler:
     
     def __init__(self, aggregate, filePath, findMatch, findProject):
         self.aggregate = aggregate
@@ -14,7 +14,7 @@ class mongo_req:
         db = client["nosql_project"]
         col = db["covid"]
         data = col.aggregate(self.aggregate)
-        data_string = "["
+        data_string = '['
         for item in data:
             data_string+=json.dumps(item)+",\n"
         data_string+="]"
@@ -22,6 +22,7 @@ class mongo_req:
         with open(self.filePath, "w") as file:
             file.write(data_string)
         client.close()
+        return data
 
     def getOutputFind(self):
         client = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -36,3 +37,4 @@ class mongo_req:
         with open(self.filePath, "w") as file:
             file.write(data_string)
         client.close()
+        return data
